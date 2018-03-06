@@ -11,6 +11,9 @@ var __extends = (this && this.__extends) || (function () {
 var Espresso = (function () {
     function Espresso() {
     }
+    Espresso.prototype.getName = function () {
+        return 'Espresso';
+    };
     Espresso.prototype.cost = function () {
         return 2;
     };
@@ -19,6 +22,9 @@ var Espresso = (function () {
 var Cappuccino = (function () {
     function Cappuccino() {
     }
+    Cappuccino.prototype.getName = function () {
+        return 'Cappuccino';
+    };
     Cappuccino.prototype.cost = function () {
         return 2.3;
     };
@@ -27,6 +33,9 @@ var Cappuccino = (function () {
 var Latte = (function () {
     function Latte() {
     }
+    Latte.prototype.getName = function () {
+        return 'Latte Macchiato';
+    };
     Latte.prototype.cost = function () {
         return 2.3;
     };
@@ -36,6 +45,9 @@ var CoffeeExtraDecorator = (function () {
     function CoffeeExtraDecorator(Coffee) {
         this._coffee = Coffee;
     }
+    CoffeeExtraDecorator.prototype.getName = function () {
+        return this._coffee.getName();
+    };
     CoffeeExtraDecorator.prototype.cost = function () {
         return this._coffee.cost();
     };
@@ -48,6 +60,9 @@ var Sugar = (function (_super) {
         _this._price = 0.3;
         return _this;
     }
+    Sugar.prototype.getName = function () {
+        return _super.prototype.getName.call(this) + ' with sugar';
+    };
     Sugar.prototype.cost = function () {
         return _super.prototype.cost.call(this).valueOf() + this._price.valueOf();
     };
@@ -60,6 +75,9 @@ var Milk = (function (_super) {
         _this._price = 0.3;
         return _this;
     }
+    Milk.prototype.getName = function () {
+        return _super.prototype.getName.call(this) + ' with milk';
+    };
     Milk.prototype.cost = function () {
         return _super.prototype.cost.call(this).valueOf() + this._price.valueOf();
     };
@@ -112,20 +130,26 @@ placeOrder = (function () {
     var coffeeExtra = document.querySelector('#extra').value;
     var coffee = coffeeFactory.createOrder(coffeeType);
     var extra = extraFactory.createOrder(coffee, coffeeExtra);
-    orderContent(extra);
-    orderCost(extra);
+    _this.orderList.push(extra);
+    console.log(_this.orderList);
+    orderContent();
+    orderCost();
 });
-orderContent = (function (items) {
-    _this.orderList.push(items);
-    console.log(orderList);
+orderContent = (function () {
     var orderContainer = document.querySelector('.order-content');
-    for (var i in orderList) {
-        orderContainer.innerHTML = '<li>' + orderList[i].valueOf().toString() + '</li>';
+    console.log(_this.orderList[0].cost());
+    for (var i = 0; i < orderList.length; ++i) {
+        var li = document.createElement('li');
+        li.appendChild(document.createTextNode(_this.orderList.splice(-1)[0].getName()));
+        orderContainer.appendChild(li);
     }
 });
-orderCost = (function (order) {
+orderCost = (function () {
     var costContainer = document.querySelector('.order-total');
-    costContainer.innerHTML = '€ ' + order.cost();
+    for (var i = 0; i < orderList.length; ++i) {
+        console.log(_this.orderList.splice(-1).cost());
+    }
+    costContainer.innerHTML = '€ ' + _this.orderList.splice(-1)[0].cost();
 });
 placeOrderHandler = (function () {
     var orderButton = document.querySelector('.place-order');

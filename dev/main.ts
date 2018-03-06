@@ -17,25 +17,32 @@ placeOrder = (() => {
     let coffee = coffeeFactory.createOrder(coffeeType);
     let extra = extraFactory.createOrder(coffee, coffeeExtra);
 
-    orderContent(extra);
-    orderCost(extra);
+    this.orderList.push(extra);
+    console.log(this.orderList);
+    orderContent();
+    orderCost();
 });
 
-orderContent = ((items) => {
-    this.orderList.push(items);
-
-    console.log(orderList);
-
+orderContent = (() => {
     let orderContainer = document.querySelector('.order-content');
+    console.log(this.orderList[0].cost());
 
-    for (let i in orderList) {
-        orderContainer.innerHTML = '<li>' + orderList[i].valueOf().toString() + '</li>';
+    for (let i = 0; i < orderList.length; ++i) {
+        let li = document.createElement('li');
+
+        li.appendChild(document.createTextNode(this.orderList.splice(-1)[0].getName()));
+
+        orderContainer.appendChild(li);
     }
 });
 
-orderCost = ((order) => {
+orderCost = (() => {
     let costContainer = document.querySelector('.order-total');
-    costContainer.innerHTML = '€ ' + order.cost();
+
+    for (let i = 0; i < orderList.length; ++i) {
+        console.log(this.orderList.splice(-1).cost());
+    }
+    costContainer.innerHTML = '€ ' + this.orderList.splice(-1)[0].cost();
 });
 
 placeOrderHandler = (() => {
