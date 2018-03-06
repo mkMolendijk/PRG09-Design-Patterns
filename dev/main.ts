@@ -27,8 +27,6 @@ setMenu = (() => {
 
         menuContainer.appendChild(option);
     }
-
-
 })();
 
 placeOrder = (() => {
@@ -39,9 +37,8 @@ placeOrder = (() => {
     let extra = extraFactory.createOrder(coffee, coffeeExtra);
 
     this.orderList.push(extra);
-    console.log(this.collection);
     orderContent();
-    orderCost();
+    // orderCost();
 });
 
 orderContent = (() => {
@@ -55,15 +52,6 @@ orderContent = (() => {
 
         orderContainer.appendChild(li);
     }
-});
-
-orderCost = (() => {
-    let costContainer = document.querySelector('.order-total');
-
-    for (let i = 0; i < orderList.length; ++i) {
-        console.log(this.orderList.splice(-1).cost());
-    }
-    costContainer.innerHTML = '€ ' + this.orderList.splice(-1)[0].cost();
 });
 
 placeOrderHandler = (() => {

@@ -163,9 +163,7 @@ placeOrder = (function () {
     var coffee = coffeeFactory.createOrder(coffeeType);
     var extra = extraFactory.createOrder(coffee, coffeeExtra);
     _this.orderList.push(extra);
-    console.log(_this.collection);
     orderContent();
-    orderCost();
 });
 orderContent = (function () {
     var orderContainer = document.querySelector('.order-content');
@@ -175,13 +173,6 @@ orderContent = (function () {
         li.appendChild(document.createTextNode(_this.orderList.splice(-1)[0].getName()));
         orderContainer.appendChild(li);
     }
-});
-orderCost = (function () {
-    var costContainer = document.querySelector('.order-total');
-    for (var i = 0; i < orderList.length; ++i) {
-        console.log(_this.orderList.splice(-1).cost());
-    }
-    costContainer.innerHTML = '€ ' + _this.orderList.splice(-1)[0].cost();
 });
 placeOrderHandler = (function () {
     var orderButton = document.querySelector('.place-order');
