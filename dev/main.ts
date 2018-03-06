@@ -2,18 +2,34 @@
 /// <reference path="iterator.ts" />
 /// <reference path="decorator.ts" />
 
+let setMenu: any;
 let placeOrder: any;
 let orderContent: any;
-// let orderList: Array<Object> = [];
+let orderList: Array<Object> = [];
 let orderCost: any;
-let removeFromOrder: any;
 let placeOrderHandler: void;
-let removeFromOrderHandler: void;
 
 let coffeeFactory = new CoffeeFactory();
 let extraFactory = new Extras();
-let orderList: ConcreteCollection = new ConcreteCollection([Espresso, Cappuccino, Latte]);
-const iterator: Iterator<any> = orderList.createIterator();
+
+let menu: Array<String> = ['Espresso', 'Cappuccino', 'Latte Macchiato'];
+let iterator: Iterator<any> = new ConcreteIterator(menu);
+
+setMenu = (() => {
+    let menuContainer = document.querySelector('#type');
+    while (iterator.hasNext()) {
+        const number: Number = iterator.next();
+        console.log(`Logging: ${number.valueOf()}`);
+
+        let option = document.createElement('option');
+        option.value = number.valueOf().toString().toLowerCase();
+        option.appendChild(document.createTextNode(number.valueOf().toString()));
+
+        menuContainer.appendChild(option);
+    }
+
+
+})();
 
 placeOrder = (() => {
     let coffeeType = (document.querySelector('#type') as HTMLSelectElement).value;
@@ -50,23 +66,7 @@ orderCost = (() => {
     costContainer.innerHTML = '€ ' + this.orderList.splice(-1)[0].cost();
 });
 
-removeFromOrder = (() => {
-
-});
-
 placeOrderHandler = (() => {
     let orderButton = document.querySelector('.place-order');
     orderButton.addEventListener('click', placeOrder);
 })();
-
-removeFromOrderHandler = (() => {
-
-})();
-
-    // const collection: ConcreteCollection = new ConcreteCollection([0, 1, 2, 3]);
-    // const iterator: Iterator<any> = collection.createIterator();
-
-    while (iterator.hasNext()) {
-        const number: Number = iterator.next();
-        console.log(`Logging: ${number.valueOf()}`);
-    }

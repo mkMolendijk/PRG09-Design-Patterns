@@ -3,15 +3,11 @@ interface Iterator<T> {
     hasNext(): boolean;
 }
 
-interface Collection {
-    createIterator(): Iterator<any>;
-}
-
 class ConcreteIterator implements Iterator<any> {
     private _collection: any[];
     private _index: number = 0;
 
-    constructor(newCollection: any[]) {
+    constructor(newCollection: String[]) {
         this._collection = newCollection;
     }
 
@@ -27,17 +23,5 @@ class ConcreteIterator implements Iterator<any> {
 
     private log(): void {
         console.log(`Logging ${this._collection[this._index]}`);
-    }
-}
-
-class ConcreteCollection implements Collection {
-    private _collection: any[] = [];
-
-    constructor(collection: any[]) {
-        this._collection = collection;
-    }
-
-    createIterator(): Iterator<any> {
-        return new ConcreteIterator(this._collection);
     }
 }

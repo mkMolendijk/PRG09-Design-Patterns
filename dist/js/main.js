@@ -135,27 +135,28 @@ var ConcreteIterator = (function () {
     };
     return ConcreteIterator;
 }());
-var ConcreteCollection = (function () {
-    function ConcreteCollection(collection) {
-        this._collection = [];
-        this._collection = collection;
-    }
-    ConcreteCollection.prototype.createIterator = function () {
-        return new ConcreteIterator(this._collection);
-    };
-    return ConcreteCollection;
-}());
 var _this = this;
+var setMenu;
 var placeOrder;
 var orderContent;
+var orderList = [];
 var orderCost;
-var removeFromOrder;
 var placeOrderHandler;
-var removeFromOrderHandler;
 var coffeeFactory = new CoffeeFactory();
 var extraFactory = new Extras();
-var orderList = new ConcreteCollection([Espresso, Cappuccino, Latte]);
-var iterator = orderList.createIterator();
+var menu = ['Espresso', 'Cappuccino', 'Latte Macchiato'];
+var iterator = new ConcreteIterator(menu);
+setMenu = (function () {
+    var menuContainer = document.querySelector('#type');
+    while (iterator.hasNext()) {
+        var number = iterator.next();
+        console.log("Logging: " + number.valueOf());
+        var option = document.createElement('option');
+        option.value = number.valueOf().toString().toLowerCase();
+        option.appendChild(document.createTextNode(number.valueOf().toString()));
+        menuContainer.appendChild(option);
+    }
+})();
 placeOrder = (function () {
     var coffeeType = document.querySelector('#type').value;
     var coffeeExtra = document.querySelector('#extra').value;
@@ -182,16 +183,8 @@ orderCost = (function () {
     }
     costContainer.innerHTML = '€ ' + _this.orderList.splice(-1)[0].cost();
 });
-removeFromOrder = (function () {
-});
 placeOrderHandler = (function () {
     var orderButton = document.querySelector('.place-order');
     orderButton.addEventListener('click', placeOrder);
 })();
-removeFromOrderHandler = (function () {
-})();
-while (iterator.hasNext()) {
-    var number = iterator.next();
-    console.log("Logging: " + number.valueOf());
-}
 //# sourceMappingURL=main.js.map
