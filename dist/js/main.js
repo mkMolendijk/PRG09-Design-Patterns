@@ -117,44 +117,6 @@ var Extras = (function () {
     };
     return Extras;
 }());
-var _this = this;
-var placeOrder;
-var orderContent;
-var orderList = [];
-var orderCost;
-var placeOrderHandler;
-var coffeeFactory = new CoffeeFactory();
-var extraFactory = new Extras();
-placeOrder = (function () {
-    var coffeeType = document.querySelector('#type').value;
-    var coffeeExtra = document.querySelector('#extra').value;
-    var coffee = coffeeFactory.createOrder(coffeeType);
-    var extra = extraFactory.createOrder(coffee, coffeeExtra);
-    _this.orderList.push(extra);
-    console.log(_this.orderList);
-    orderContent();
-    orderCost();
-});
-orderContent = (function () {
-    var orderContainer = document.querySelector('.order-content');
-    console.log(_this.orderList[0].cost());
-    for (var i = 0; i < orderList.length; ++i) {
-        var li = document.createElement('li');
-        li.appendChild(document.createTextNode(_this.orderList.splice(-1)[0].getName()));
-        orderContainer.appendChild(li);
-    }
-});
-orderCost = (function () {
-    var costContainer = document.querySelector('.order-total');
-    for (var i = 0; i < orderList.length; ++i) {
-        console.log(_this.orderList.splice(-1).cost());
-    }
-    costContainer.innerHTML = '€ ' + _this.orderList.splice(-1)[0].cost();
-});
-placeOrderHandler = (function () {
-    var orderButton = document.querySelector('.place-order');
-    orderButton.addEventListener('click', placeOrder);
-})();
 var ConcreteIterator = (function () {
     function ConcreteIterator(newCollection) {
         this._index = 0;
@@ -183,4 +145,53 @@ var ConcreteCollection = (function () {
     };
     return ConcreteCollection;
 }());
+var _this = this;
+var placeOrder;
+var orderContent;
+var orderCost;
+var removeFromOrder;
+var placeOrderHandler;
+var removeFromOrderHandler;
+var coffeeFactory = new CoffeeFactory();
+var extraFactory = new Extras();
+var orderList = new ConcreteCollection([Espresso, Cappuccino, Latte]);
+var iterator = orderList.createIterator();
+placeOrder = (function () {
+    var coffeeType = document.querySelector('#type').value;
+    var coffeeExtra = document.querySelector('#extra').value;
+    var coffee = coffeeFactory.createOrder(coffeeType);
+    var extra = extraFactory.createOrder(coffee, coffeeExtra);
+    _this.orderList.push(extra);
+    console.log(_this.collection);
+    orderContent();
+    orderCost();
+});
+orderContent = (function () {
+    var orderContainer = document.querySelector('.order-content');
+    console.log(_this.orderList[0].cost());
+    for (var i = 0; i < orderList.length; ++i) {
+        var li = document.createElement('li');
+        li.appendChild(document.createTextNode(_this.orderList.splice(-1)[0].getName()));
+        orderContainer.appendChild(li);
+    }
+});
+orderCost = (function () {
+    var costContainer = document.querySelector('.order-total');
+    for (var i = 0; i < orderList.length; ++i) {
+        console.log(_this.orderList.splice(-1).cost());
+    }
+    costContainer.innerHTML = '€ ' + _this.orderList.splice(-1)[0].cost();
+});
+removeFromOrder = (function () {
+});
+placeOrderHandler = (function () {
+    var orderButton = document.querySelector('.place-order');
+    orderButton.addEventListener('click', placeOrder);
+})();
+removeFromOrderHandler = (function () {
+})();
+while (iterator.hasNext()) {
+    var number = iterator.next();
+    console.log("Logging: " + number.valueOf());
+}
 //# sourceMappingURL=main.js.map

@@ -4,14 +4,14 @@ interface Iterator<T> {
 }
 
 interface Collection {
-    createIterator(): Iterator<Number>;
+    createIterator(): Iterator<any>;
 }
 
-class ConcreteIterator implements Iterator<Number> {
-    private _collection: Number[];
+class ConcreteIterator implements Iterator<any> {
+    private _collection: any[];
     private _index: number = 0;
 
-    constructor(newCollection: Number[]) {
+    constructor(newCollection: any[]) {
         this._collection = newCollection;
     }
 
@@ -31,23 +31,13 @@ class ConcreteIterator implements Iterator<Number> {
 }
 
 class ConcreteCollection implements Collection {
-    private _collection: Number[] = [];
+    private _collection: any[] = [];
 
-    constructor(collection: Number[]) {
+    constructor(collection: any[]) {
         this._collection = collection;
     }
 
-    createIterator(): Iterator<Number> {
+    createIterator(): Iterator<any> {
         return new ConcreteIterator(this._collection);
     }
 }
-
-// (function main() {
-//     const collection: ConcreteCollection = new ConcreteCollection([0, 1, 2, 3]);
-//     const iterator: Iterator<Number> = collection.createIterator();
-//
-//     while (iterator.hasNext()) {
-//         const number: Number = iterator.next();
-//         console.log(`Logging: ${number.valueOf()}`);
-//     }
-// })();

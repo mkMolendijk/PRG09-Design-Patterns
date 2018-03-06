@@ -1,14 +1,19 @@
 /// <reference path="factory.ts" />
+/// <reference path="iterator.ts" />
 /// <reference path="decorator.ts" />
 
 let placeOrder: any;
 let orderContent: any;
-let orderList: Array<Object> = [];
+// let orderList: Array<Object> = [];
 let orderCost: any;
+let removeFromOrder: any;
 let placeOrderHandler: void;
+let removeFromOrderHandler: void;
 
 let coffeeFactory = new CoffeeFactory();
 let extraFactory = new Extras();
+let orderList: ConcreteCollection = new ConcreteCollection([Espresso, Cappuccino, Latte]);
+const iterator: Iterator<any> = orderList.createIterator();
 
 placeOrder = (() => {
     let coffeeType = (document.querySelector('#type') as HTMLSelectElement).value;
@@ -18,7 +23,7 @@ placeOrder = (() => {
     let extra = extraFactory.createOrder(coffee, coffeeExtra);
 
     this.orderList.push(extra);
-    console.log(this.orderList);
+    console.log(this.collection);
     orderContent();
     orderCost();
 });
@@ -45,7 +50,23 @@ orderCost = (() => {
     costContainer.innerHTML = '€ ' + this.orderList.splice(-1)[0].cost();
 });
 
+removeFromOrder = (() => {
+
+});
+
 placeOrderHandler = (() => {
     let orderButton = document.querySelector('.place-order');
     orderButton.addEventListener('click', placeOrder);
 })();
+
+removeFromOrderHandler = (() => {
+
+})();
+
+    // const collection: ConcreteCollection = new ConcreteCollection([0, 1, 2, 3]);
+    // const iterator: Iterator<any> = collection.createIterator();
+
+    while (iterator.hasNext()) {
+        const number: Number = iterator.next();
+        console.log(`Logging: ${number.valueOf()}`);
+    }
